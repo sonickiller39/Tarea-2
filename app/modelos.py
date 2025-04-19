@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Enum, DateTime
+from sqlalchemy import Column, Integer, String, Enum, DateTime
 from app.base_datos import Base
 import enum
 
@@ -9,8 +9,10 @@ class EstadoVuelo(enum.Enum):
 
 class Vuelo(Base):
     __tablename__ = "vuelos"
-    codigo = Column(String, primary_key=True, index=True)
-    estado = Column(Enum(EstadoVuelo))
-    hora = Column(DateTime)
-    origen = Column(String)
-    destino = Column(String)
+
+    id = Column(Integer, primary_key=True, index=True)
+    codigo = Column(String, unique=True, nullable=False)
+    estado = Column(Enum(EstadoVuelo), nullable=False)
+    hora = Column(DateTime, nullable=False)
+    origen = Column(String, nullable=False)
+    destino = Column(String, nullable=False)
